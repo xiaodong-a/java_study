@@ -1,0 +1,32 @@
+test01
+//静态代码区中声明变量会如何
+//好像不能声明静态变量。生成非静态也没有用
+
+test02
+关于string类型的hashcode
+        String a = new String("abc");
+        String b = "abc";
+        String c = "abc";
+        String d = new String("ab");
+        String e = new String ("c");
+        String f=d+e;
+无论什么来源如果字符相同hashcode相同a b c f
+
+常量字符串的地址都相同。如果是new建立的字符串，会有不同的地址
+String s = "[";
+那么s+=？？？？  都会改变s的地址
+
+如果String s = new String("[")呢，
+s+= int 会改变s的地址。但是地址和String s = "[";的不一样，堆中的地址也变？难道new只是开辟了大小固定的空间？
+
+ @Stable
+    private final byte[] value;
+    private final byte coder;
+    private int hash;
+    private static final long serialVersionUID = -6849794470754667710L;
+    static final boolean COMPACT_STRINGS = true;
+    private static final ObjectStreamField[] serialPersistentFields = new ObjectStreamField[0];
+    public static final Comparator<String> CASE_INSENSITIVE_ORDER = new String.CaseInsensitiveComparator();
+    static final byte LATIN1 = 0;
+    static final byte UTF16 = 1;
+   可能因为string的类都是final的变量吧，改变了必须新new

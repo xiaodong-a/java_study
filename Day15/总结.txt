@@ -1,0 +1,98 @@
+1.Arrays类
+	里面的方法都是静态的,可以直接使用类名.调用
+	观察源码: 他的构造被私有化, 不建议我们创建对象
+	静态方法:
+		String toString(数组); ----> 可以将数组中的内容拼接字符串返回给我们,方便我们打印数组
+		void sort(数组); ---->可以将数组排序
+		字符串: 按照底层ASCII码值排序
+2.基本类型对应的包装类
+	int  ---> Integer
+	char ---> Character
+	学习包装类的目的
+		1.包装类有更多的功能
+		2.包装类可以赋值为null
+		3.泛型只能规定成引用数据类型
+	我们在开发过程中,需要包装类和基本类型做切换
+		装箱: 将基本类型变成其对应引用类型
+		拆箱: 将包装类型变成其对应的基本数据类型
+		总结: 装箱和拆箱很恶心麻烦
+	JDK1.5以后出现了自动拆箱和装箱, 总结我们可以将基本的类型直接当成引用数据类型就可以了
+	
+	包装类存在的意义是什么????????????
+	意义: 可以实现基本数据类型和字符串的互转
+		int ---> String
+			int a = 10;
+			String s = a +"";
+		String ---> int
+			String s = "10";
+			// static int parseInt(String s)  在包装类中有定义静态的方法可以将字符串变成基本数据类型
+			int a = Integer.parseInt(s);
+	总结: 包装类中有静态方法可以方便的让String类型的数据变成基本数据类型
+		int Integer.parseInt(String s);
+		double Double.parseDouble(String s);
+		byte Byte.parseByte(String s);
+		short Short.parseShort(String s);
+		long Long.parseLong(String s);
+		float Float.parseFloat(String s);
+		boolean Boolean.parseBoolean(String s);
+	转换时注意事项:
+		1.一定要是其对应的类型才可以转, 否则会报 NumberFormatException
+           
+        2.如果boolean类型的话, 只有"true"才会转成true,其他字符串都是false
+        3.Character里面没有parse方法
+3.引用数据类型作为参数和返回值,成员变量的问题
+	只要是引用数据类型, 我们在对参数赋值, 或者返回的时候都需要给一个地址, 抽象类和接口
+	不能直接new ,只能去new其子类或者实现类来产生地址,体会到了引用数据类型的强大.
+4.Date
+	1.看包 : java.util --->我们需要导包
+	2.看构造:
+		Date() ; 作用: 代表当前系统时间, 维护了一个从1970年到现在的毫秒值
+		Date(long date) ; 作用: 代表指定时间
+		注意事项:
+			时间原点: 1970年1月1日 0时0分0秒 , 格林子午线(格林威治 )的时间, 我们处于东八区, 需要在时间原点上+8个小时
+		Date之所以代表时间, 是因为里面维护一个距离时间原点的毫秒值.
+		如果毫秒值为正数, 我们是表示的1970以后的时间
+		如果毫秒值为负数, 我们是表示1970年以前的时间
+	3.成员方法
+		long getTime()  ; 获取时间内维护的毫秒值
+		void setTime(long time); 修改时间内的毫秒值
+		
+5.为了让Date变得更好看, 我们需要学习 SimpleDateFormat
+	1.看包:
+		java.text , 使用时候需要导包
+	2.看了构造
+		SimpleDateFormat()(不会用, 因为默认提供过的模式太难看了)
+        SimpleDateFormat(String pattern)
+			注意模式的关键字
+				yyyy: 4个小姨
+				MM: 2个大美眉
+				dd: 2个小dd
+				HH: 2个大H
+				mm: 2个小美眉
+				ss: 2个小s
+			常见的模式:
+				"yyyy年MM月dd日 HH:mm:ss"  
+				"yyyy-MM-dd HH:mm:ss"
+	3.成员方法
+		SimpleDateFormat 为了让Date和 String 之间完成互转
+		Date ---> String
+			String format(Date date);
+		String ---> Date
+			 Date parse(String source) 
+	4.时间的修正, 计算活了多久		 
+			 
+6.Math
+	public static int abs(int a)获取参数a的绝对值： 
+		----> 绝对值, 正数的绝对值是其本身, 负数的绝对值是其相反数
+	public static double ceil(double a)向上取整
+		---->取离自己最近的的比自己大整数 
+	public static double floor(double a)向下取整
+		---->取离自己最近的比自己小的整数
+	public static double pow(double a, double b)
+		---->获取a的b次幂
+	public static long round(double a)
+		----> 四舍五入取整
+		
+		
+		
+		
