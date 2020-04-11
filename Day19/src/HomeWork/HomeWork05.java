@@ -1,4 +1,7 @@
 package HomeWork;
+
+import java.util.Scanner;
+
 //请按以下步骤要求编写代码：
 //	定义一个“年龄异常类”：AgeException，使其继承自RuntimeException，并添加无参、String参数的构造方法；
 //	定义一个“性别异常类”：SexException，使其继承自RuntimeException，并添加无参、String参数的构造方法；
@@ -23,7 +26,7 @@ class Student{
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(String sex) throws SexException {
         if (sex.equals("男")||sex.equals("女")){
             this.sex = name;
         }else{
@@ -35,7 +38,7 @@ class Student{
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(int age) throws AgeException {
         if (age>15 && age<50) {
             this.age = age;
         }else{
@@ -50,7 +53,7 @@ class Student{
     public Student() {
     }
 
-    public Student(String name, String sex, int age) {
+    public Student(String name, String sex, int age) throws AgeException, SexException {
         this.name = name;
         this.sex = sex;
         if (age>15 && age<50) {
@@ -74,7 +77,7 @@ class Student{
                 '}';
     }
 }
-class SexException extends  RuntimeException{
+class SexException extends  Exception{
     public SexException() {
     }
 
@@ -94,7 +97,7 @@ class SexException extends  RuntimeException{
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }
-class AgeException extends RuntimeException{
+class AgeException extends Exception{
     public AgeException() {
     }
 
@@ -116,14 +119,11 @@ class AgeException extends RuntimeException{
 
 }
 public class HomeWork05 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SexException {
         Student stu = new Student();
-        try {
-            stu.setAge(9);
+     //   Scanner in = new Scanner(System.in);
+      //  String str = in.next();
+            stu.setSex("1");
             System.out.println(stu);
-        }catch (Exception e){
-            e.printStackTrace();
-            System.out.println(e);
-        }
     }
 }

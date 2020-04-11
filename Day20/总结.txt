@@ -1,0 +1,134 @@
+1.io的流分类
+	持久化存储:当电脑关闭后,程序运行结束后,数据不会消失
+	临时存储: 内存就是一种临时存储技术, 特点, 当电脑关闭后,程序运行结束后,数据就会消失
+	字节流(操作字节数据的)
+		输入流: 硬盘 -> 内存 ----> 读入
+			InputStream(抽象类: 定义了一个规则, 就是只要是输入流就必须能够读数据)
+			子类: FileInputStream(文件输入流)
+			中心思想: 重点学读数据
+				包: java.io包
+				构造:
+					FileInputStream(String name) 
+					注意: 输入流关联的文件一定要存在才可以,否则会报FileNotFoundException
+				成员方法:
+					- `public void close()` ：关闭此输入流并释放与此流相关联的任何系统资源。
+					- `public abstract int read()`： 从输入流读取数据的下一个字节。
+						一次读一个,返回的得到的字节
+					- `public int read(byte[] b)`： 从输入流中读取一些字节数，并将它们存储到字节数组 b中 。
+						一次读多个, 返回的是读取的有效个数
+			
+		输出流: 内存 -> 硬盘 ----> 写出
+			OutputStream(抽象类: 定义了一个规则, 就是只要是输出流, 就必须能够写数据)
+			子类: FileOutputStream(文件输出流)
+			中心思想: 重点学写数据	
+				包: java.io包
+				构造:
+					FileOutputStream(String name) 
+						 输出流的空参构造办的事情
+							1.创建了输出流对象
+							2.指向了硬盘的文件
+							3.如果文件不存在,则帮我们创建出来,如果文件存在,则帮我们清空里面的内容
+						 注意事项:
+							他确实可以帮我们创建文件, 但是不会帮我们创建文件夹,所以我们必须
+							保证我们关联的文件所在文件夹要存在才可以,否则报FileNotFoundException
+					FileOutputStream(String name, boolean append) 
+						注意: append的值为true则是以续写的方式关联文件
+				成员方法:
+					(掌握)- `public void close()` ：关闭此输出流并释放与此流相关联的任何系统资源。
+					- `public void flush() ` ：刷新此输出流并强制任何缓冲的输出字节被写出。
+					(掌握)- `public void write(byte[] b)`：将 b.length字节从指定的字节数组写入此输出流。
+					(掌握)- `public void write(byte[] b, int off, int len)` ：从指定的字节数组写入 len字节，从偏移量 off开始输出到此输出流。
+					- `public abstract void write(int b)` ：将指定的字节输出流。这个效率比较低下,用不到
+
+	字符流(操作字符数据的)
+		输入流: 硬盘 -> 内存 ----> 读入
+			Reader (抽象类: 定义规则, 要求必须有读的方法)
+			FileReader
+				中心思想: 要会读
+				包:java.io
+				构造:
+					FileReader(String fileName) 
+					注意:一定要保证要读取的文件存在才可以
+
+				成员方法:
+					- `public void close()` ：关闭此流并释放与此流相关联的任何系统资源。
+					- `public int read()`： 从输入流读取一个字符。
+					- `public int read(char[] cbuf)`： 从输入流中读取一些字符，并将它们存储到字符数组 cbuf中 。
+				
+		输出流: 内存 -> 硬盘 ----> 写出
+			Writer(抽象类: 定义规则, 要求必须有写的方法)
+			FileWriter
+				中心思想: 要会写
+				包:java.io
+				构造:
+					FileWriter(String fileName) 
+					FileWriter(String fileName, boolean append) 
+
+				
+				成员方法:
+					- `public abstract void close()` ：关闭此输出流并释放与此流相关联的任何系统资源。  
+					- `public abstract void flush() ` ：刷新此输出流并强制任何缓冲的输出字符被写出。  
+					- `public void write(int c)` ：写出一个字符。
+					- `public void write(char[] cbuf)`：将 b.length字符从指定的字符数组写出此输出流。  
+					- `public abstract void write(char[] b, int off, int len)` ：从指定的字符数组写出 len字符，从偏移量 off开始输出到此输出流。  
+					- `public void write(String str)` ：写出一个字符串。
+				
+2.二进制文件和非二进制文件
+	非二进制文件: 用window记事本打开不乱码的文件
+		保存的时候,会将文字参照码表保存成字节(把我们看懂的翻译成计算看懂的), 
+		打开时候也会参照码表翻译成字符(把计算机看懂的翻译成我们看懂的)
+	二进制文件: 除非二进制的都是二进制
+		保存的时候, 直接保存的是字节
+		读取的时候, 直接解析就是字节
+	.doc --->	二进制文件, word文档中可以插入图片,音频
+	.md --->  非二进制文件. 底层是一个语法, 图片只是一个路径
+3.字符串和字节数组互转
+	String ----> 字节数组
+		通过字符串的getByte()方法得到
+		 byte[] getBytes() ; 
+	字节数组 ---> String
+		String(byte[] bytes)  --->将字节数组转成字符串内容
+		String(byte[] bytes, int offset, int length) ---->将字节数组的一部分转成字符串
+4.字符串和字符数组互转
+	String ----> 字符数组
+		char[] toCharArray() 
+	字符数组 ----> String
+		String(char[] value) 
+		String(char[] value, int offset, int count) 
+5.速率的问题
+	总结: 
+		1.如果仅仅是拷贝文件的话,用字节流, 因为字符流有转换编码的过程
+		2.除非要读取字符内容,或者写字符内容才会用字符流
+6.编码表
+	ASCII码表: 
+	GBK: 中文简体
+	UTF-8: 万国码表
+		包含所有国家中常用的字符, 是统一的码表, 开发过程用的是这个
+		
+	注意:
+		不管是GBK或者UTF-8都是基于ASCII码表产生的
+	总结: 我们发现UTF-8中有的字符是两个字节, 有的字符是3个字节, 有的字符是1个字节, 但是字符流已经帮我们做过了,所以感谢字符流	
+		
+重点:
+	1.会使用字节流来去读写文件
+	2.会使用字符流来去读写文件
+		
+	
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+		
