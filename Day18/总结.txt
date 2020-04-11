@@ -1,0 +1,66 @@
+1.HashSet的介绍
+	特点:
+		无序, 没有索引, 不能重复
+		没有特殊的方法, 所有的方法都是继承Collection
+	总结:
+        Set常见方法
+            boolean add(E e); 添加一个元素
+            boolean remove(Object o) 删除元素
+            boolean contains(Object o) 判断是否包含某个元素
+            int size(); 求元素个数
+        遍历set集合
+			1.可以采用迭代器
+			2.可以采用增强for
+    注意:
+        Set集合没有索引的, 所以没有获取和修改的方法
+2.HashSet集合去重原理
+
+	(1)发现Object中有一个hashcode方法是一个本地(native)方法, 专门用来和c语言进行交互的
+	   这个方法默认是根据真实地址利用hash算法生成一个Hash值,言外之意,如果我们对象
+	   没有重写hashcode的话他是根据真实地址生成的hash值, 但是我们如果重写了,他就
+	   跟地址没关系了
+	(2)我们深入研究了Hashtable的结构的源码, 
+	   发现HashSet是这样的去重的,如果hashcode值和equals方法都一样的话,则认为是重复元素
+	   则不会存储, 否则会存储,如果想要在HashSet中存储引用数据类型, 想要达到属性一样
+	   则认为重复元素, 则必须重写hashcode和equals方法才可以
+	   
+	今天晚上: 我会写一个自定义的hash表结构的集合   
+3.LinkedHashSet
+	总结: 和HashSet用法完全一样, 只不过可以保证存储顺序和取出顺序一致
+4.HashMap	
+	Map集合的特点:
+		1.一次存储一对数据,分为键和值
+		2.其中键不能重复, 值可以重复
+	本质: 也是一个容器, 可以存储减值对的容器
+	增:
+		public V  put(K key,V value); ----> 将减值对放入集合, 返回键原先的值
+	删:
+		public V  remove(Object o); ----> 删除键所对应的减值对, 返回键对应的值
+	改:
+		public V  put(K key,V value); ----> 将键值对放入集合, 替换键原先的值
+	查:
+		public V get(Object key); ----> 获取键所对应的值
+		
+	遍历:
+		经观察发现, Map集合没有索引, 没有实现Iterator接口, 不能直接使用普通for,迭代器,增强for遍历
+		
+		- `public Set<K> keySet()`: 获取Map集合中所有的键，存储到Set集合中。
+		- `public Set<Map.Entry<K,V>> entrySet()`: 获取到Map集合中所有的键值对对象的集合(Set集合)。
+		- `public boolean containKey(Object key)`:判断该集合中是否有此键。
+	其他方法:
+		
+5.Collections
+	1.首先里面的方法都是静态的,可以类名直接调用
+		static void shuffle(List<?> list) (了解内容, 因为基本上只有在棋牌的时候才会使用,后者抽奖)
+		
+6.查表法
+	作用: 可以帮助我们在一些没有自然顺序的东西,非要进行排序的时候可以使用
+	步骤
+		1.定义规则, 这个规则一般情况是数字和要排序的东西的对应关系
+
+
+
+
+
+
+	
